@@ -1,6 +1,12 @@
 variable "name" {
   description = "Key that identifies the service principal in tfvars. Used as the display name fallback."
   type        = string
+  nullable    = false
+
+  validation {
+    condition     = try(length(trimspace(var.name)) > 0, false)
+    error_message = "name must not be empty or blank."
+  }
 }
 
 variable "display_name" {
@@ -12,21 +18,25 @@ variable "display_name" {
 variable "allow_cluster_create" {
   description = "Let the service principal create clusters."
   type        = bool
+  nullable    = false
 }
 
 variable "allow_instance_pool_create" {
   description = "Let the service principal create instance pools."
   type        = bool
+  nullable    = false
 }
 
 variable "databricks_sql_access" {
   description = "Give the service principal access to Databricks SQL."
   type        = bool
+  nullable    = false
 }
 
 variable "workspace_access" {
   description = "Give the service principal access to the workspace."
   type        = bool
+  nullable    = false
 }
 
 variable "workspace_consume" {

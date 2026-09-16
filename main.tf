@@ -1,7 +1,7 @@
 resource "databricks_service_principal" "this" {
   lifecycle {
     precondition {
-      condition     = var.workspace_consume != true || (!var.workspace_access && !var.databricks_sql_access)
+      condition     = var.workspace_consume != true || (var.workspace_access != true && var.databricks_sql_access != true)
       error_message = "workspace_consume cannot be true with workspace_access or databricks_sql_access."
     }
   }

@@ -18,25 +18,21 @@ variable "display_name" {
 variable "allow_cluster_create" {
   description = "Let the service principal create clusters."
   type        = bool
-  nullable    = false
 }
 
 variable "allow_instance_pool_create" {
   description = "Let the service principal create instance pools."
   type        = bool
-  nullable    = false
 }
 
 variable "databricks_sql_access" {
   description = "Give the service principal access to Databricks SQL."
   type        = bool
-  nullable    = false
 }
 
 variable "workspace_access" {
   description = "Give the service principal access to the workspace."
   type        = bool
-  nullable    = false
 }
 
 variable "workspace_consume" {

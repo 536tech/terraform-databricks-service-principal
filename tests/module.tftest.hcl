@@ -17,3 +17,47 @@ run "documented_example" {
     error_message = "The resource must preserve its configured name."
   }
 }
+
+run "reject_blank_name" {
+  command = plan
+  variables {
+    name = "  "
+  }
+  expect_failures = [var.name]
+}
+
+run "reject_conflicting_entitlements" {
+  command = plan
+  variables {
+    workspace_consume = true
+  }
+  expect_failures = [databricks_service_principal.this]
+}
+
+run "accept_consume_only" {
+  command = plan
+  variables {
+    workspace_consume     = true
+    workspace_access      = false
+    databricks_sql_access = false
+  }
+}
+
+run "accept_provider_defaults" {
+  command = plan
+  variables {
+    allow_cluster_create       = null
+    allow_instance_pool_create = null
+    databricks_sql_access      = null
+    workspace_access           = null
+  }
+}
+
+run "accept_consume_with_default_access" {
+  command = plan
+  variables {
+    workspace_consume     = true
+    workspace_access      = null
+    databricks_sql_access = null
+  }
+}

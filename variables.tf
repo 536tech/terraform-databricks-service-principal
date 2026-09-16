@@ -1,6 +1,12 @@
 variable "name" {
   description = "Key that identifies the service principal in tfvars. Used as the display name fallback."
   type        = string
+  nullable    = false
+
+  validation {
+    condition     = try(length(trimspace(var.name)) > 0, false)
+    error_message = "name must not be empty or blank."
+  }
 }
 
 variable "display_name" {

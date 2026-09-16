@@ -1,4 +1,11 @@
 resource "databricks_service_principal" "this" {
+  lifecycle {
+    precondition {
+      condition     = var.workspace_consume != true || (var.workspace_access != true && var.databricks_sql_access != true)
+      error_message = "workspace_consume cannot be true with workspace_access or databricks_sql_access."
+    }
+  }
+
   display_name = coalesce(var.display_name, var.name)
 
   allow_cluster_create       = var.allow_cluster_create
